@@ -12,8 +12,8 @@ using Tarteeb.Api.Brokers.Storages;
 namespace Tarteeb.Api.Migrations
 {
     [DbContext(typeof(StorageBroker))]
-    [Migration("20230424154345_AddMilestoneIdToTicketTable")]
-    partial class AddMilestoneIdToTicketTable
+    [Migration("20230425115135_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,10 +153,6 @@ namespace Tarteeb.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssigneeId");
-
-                    b.HasIndex("CreatedUserId");
-
                     b.HasIndex("MilestoneId");
 
                     b.HasIndex("UpdatedUserId");
@@ -285,33 +281,17 @@ namespace Tarteeb.Api.Migrations
 
             modelBuilder.Entity("Tarteeb.Api.Models.Foundations.Tickets.Ticket", b =>
                 {
-                    b.HasOne("Tarteeb.Api.Models.Foundations.Users.User", "Assignee")
-                        .WithMany()
-                        .HasForeignKey("AssigneeId");
-
-                    b.HasOne("Tarteeb.Api.Models.Foundations.Users.User", "CreatedUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tarteeb.Api.Models.Foundations.Milestones.Milestone", "Milestone")
-                        .WithMany()
+                    b.HasOne("Tarteeb.Api.Models.Foundations.Milestones.Milestone", null)
+                        .WithMany("Tickets")
                         .HasForeignKey("MilestoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Tarteeb.Api.Models.Foundations.Users.User", "UpdatedUser")
-                        .WithMany()
+                        .WithMany("Tickets")
                         .HasForeignKey("UpdatedUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Assignee");
-
-                    b.Navigation("CreatedUser");
-
-                    b.Navigation("Milestone");
 
                     b.Navigation("UpdatedUser");
                 });
@@ -344,6 +324,16 @@ namespace Tarteeb.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("Tarteeb.Api.Models.Foundations.Milestones.Milestone", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("Tarteeb.Api.Models.Foundations.Users.User", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

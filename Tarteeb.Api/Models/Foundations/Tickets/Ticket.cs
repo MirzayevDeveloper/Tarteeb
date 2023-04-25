@@ -4,6 +4,7 @@
 //=================================
 
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Tarteeb.Api.Models.Foundations.Milestones;
 using Tarteeb.Api.Models.Foundations.Users;
@@ -22,11 +23,11 @@ namespace Tarteeb.Api.Models.Foundations.Tickets
         public DateTimeOffset UpdatedDate { get; set; }
 
         public Guid? AssigneeId { get; set; }
-        [JsonIgnore]
+        [NotMapped]
         public User Assignee { get; set; }
 
         public Guid CreatedUserId { get; set; }
-        [JsonIgnore]
+        [NotMapped]
         public User CreatedUser { get; set; }
 
         public Guid UpdatedUserId { get; set; }
@@ -34,7 +35,7 @@ namespace Tarteeb.Api.Models.Foundations.Tickets
         public User UpdatedUser { get; set; }
 
         public Guid MilestoneId { get; set; }
-        [JsonIgnore]
+        [NotMapped]
         public Milestone Milestone { get; set; }
     }
 }

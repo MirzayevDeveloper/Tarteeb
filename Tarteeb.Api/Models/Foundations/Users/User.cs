@@ -4,8 +4,11 @@
 //=================================
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Tarteeb.Api.Models.Foundations.Teams;
+using Tarteeb.Api.Models.Foundations.Tickets;
 
 namespace Tarteeb.Api.Models.Foundations.Users
 {
@@ -24,6 +27,7 @@ namespace Tarteeb.Api.Models.Foundations.Users
         public bool IsVerififed { get; set; }
         public string GitHubUsername { get; set; }
         public string TelegramUsername { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
 
         public Guid TeamId { get; set; }
         [JsonIgnore]

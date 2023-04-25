@@ -4,6 +4,8 @@
 //=================================
 
 using System;
+using System.Collections.Generic;
+using Tarteeb.Api.Models.Foundations.Tickets;
 using Tarteeb.Api.Models.Foundations.Users;
 
 namespace Tarteeb.Api.Models.Foundations.Milestones
@@ -20,5 +22,6 @@ namespace Tarteeb.Api.Models.Foundations.Milestones
 
         public Guid AssigneeId { get; set; }
         public User Assignee { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }
